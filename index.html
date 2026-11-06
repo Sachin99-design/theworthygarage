@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#10151C">
+<!-- favicon -->
+ <link rel="apple-touch-icon" sizes="180x180" href="fav/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="fav/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="fav/favicon-16x16.png">
+<link rel="manifest" href="fav/site.webmanifest">
+<!-- favicon end -->
+    <title>The Worthy Garage | Share Your Ownership Experience</title>
+
+    <link rel="stylesheet" href="style.css">
+
+
+
+    <style>
+
+        /* Vehicle Story PDF upload — matched to the existing TWG form theme */
+
+        .form-group .pdf-upload-control {
+
+            margin-top: 4px;
+
+        }
+
+
+
+        .form-group .pdf-upload-input {
+
+            position: absolute;
+
+            width: 1px;
+
+            height: 1px;
+
+            padding: 0;
+
+            margin: -1px;
+
+            overflow: hidden;
+
+            clip: rect(0, 0, 0, 0);
+
+            white-space: nowrap;
+
+            clip-path: inset(50%);
+
+            border: 0;
+
+        }
+
+
+
+        .form-group .pdf-upload-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            min-height: 44px;
+
+            padding: 11px 18px;
+
+            margin: 2px 0 0;
+
+            border: 1.5px solid var(--charcoal);
+
+            border-radius: var(--radius-sm);
+
+            background: var(--charcoal);
+
+            color: var(--white);
+
+            font-family: var(--font);
+
+            font-size: 0.9rem;
+
+            font-weight: 600;
+
+            line-height: 1.3;
+
+            cursor: pointer;
+
+            transition: background .2s ease, border-color .2s ease,
+
+                        box-shadow .2s ease, transform .2s ease;
+
+        }
+
+
+
+        .form-group .pdf-upload-button:hover {
+
+            background: var(--red);
+
+            border-color: var(--red);
+
+            box-shadow: 0 5px 14px rgba(227, 30, 36, .16);
+
+            transform: translateY(-1px);
+
+        }
+
+
+
+        .form-group .pdf-upload-button:active {
+
+            transform: translateY(0);
+
+        }
+
+
+
+        .form-group .pdf-upload-button svg {
+
+            width: 18px;
+
+            height: 18px;
+
+            flex: 0 0 18px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1.8;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+
+        }
+
+
+
+        .form-group .pdf-upload-input:focus-visible + .pdf-upload-button {
+
+            outline: 3px solid rgba(227, 30, 36, .22);
+
+            outline-offset: 3px;
+
+        }
+
+
+
+        .form-group .pdf-file-name {
+
+            display: block;
+
+            margin-top: 9px;
+
+            color: var(--grey);
+
+            font-size: .84rem;
+
+            line-height: 1.5;
+
+            overflow-wrap: anywhere;
+
+        }
+
+
+
+        .form-group .pdf-file-name.has-file {
+
+            color: #177245;
+
+            font-weight: 600;
+
+        }
+
+
+
+        @media (max-width: 700px) {
+
+            .form-group .pdf-upload-button {
+
+                width: 100%;
+
+                justify-content: center;
+
+            }
+
+        }
+
+    </style>
+
+
+
+</head>
+
+
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="" class="logo">
+
+                <img src="TWG_logo.svg" alt="The Worthy Garage" class="logo-img">
+
+                <span>PRACTICAL AUTOMOTIVE ASSISTANCE</span>
+
+            </a>
+
+
+
+            <button class="hamburger" type="button" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+
+            <nav class="main-nav">
+
+                <ul></ul>
+
+            </nav>
+
+            <a href="" class="btn btn-primary desktop-cta" style="white-space:nowrap;">
+
+                Kindly Share Your Ownership Experience
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <main class="container" style="padding-top:48px; padding-bottom:64px;">
+
+        <div class="form-page-wrap">
+
+            <div class="form-card">
+
+                <h3>Share Your Vehicle Story</h3>
+
+
+
+                <p class="desc">
+
+                    Do you own an interesting vehicle or have a unique ownership experience?
+
+                    Maybe you've driven your vehicle for lakhs of kilometres, bought a second-hand
+
+                    car and regretted it, faced expensive repairs, or have an interesting story worth sharing.
+
+                    Tell us about it! We might feature your vehicle in a future video when we visit your city.
+
+                </p>
+
+
+
+                <!--
+
+                    FORM BACKEND:
+
+                    The form fields are prepared for Google Apps Script.
+
+                    Connect the form to your deployed Apps Script endpoint when Code.gs is ready.
+
+                    Do not publish with action="#" as a working submission form.
+
+                -->
+
+                <form id="vehicle-story-form" action="#" method="post" accept-charset="UTF-8">
+
+                    <div class="form-section-label">Your details</div>
+
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="name">Q1. Your Name <span aria-hidden="true">*</span></label>
+
+                            <input
+
+                                type="text"
+
+                                id="name"
+
+                                name="name"
+
+                                required
+
+                                maxlength="100"
+
+                                autocomplete="name"
+
+                                placeholder="Example: Rahul Kumar">
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label for="city">Q2. Your City <span aria-hidden="true">*</span></label>
+
+                            <input
+
+                                type="text"
+
+                                id="city"
+
+                                name="city"
+
+                                required
+
+                                maxlength="100"
+
+                                autocomplete="address-level2"
+
+                                placeholder="Example: Ranchi">
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="state">Q3. Your State / Union Territory <span aria-hidden="true">*</span></label>
+
+                        <select id="state" name="state" required>
+
+                            <option value="" selected disabled>Select your state or union territory</option>
+
+                            <optgroup label="States">
+
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+
+                                <option value="Assam">Assam</option>
+
+                                <option value="Bihar">Bihar</option>
+
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+
+                                <option value="Goa">Goa</option>
+
+                                <option value="Gujarat">Gujarat</option>
+
+                                <option value="Haryana">Haryana</option>
+
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+
+                                <option value="Jharkhand">Jharkhand</option>
+
+                                <option value="Karnataka">Karnataka</option>
+
+                                <option value="Kerala">Kerala</option>
+
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+
+                                <option value="Maharashtra">Maharashtra</option>
+
+                                <option value="Manipur">Manipur</option>
+
+                                <option value="Meghalaya">Meghalaya</option>
+
+                                <option value="Mizoram">Mizoram</option>
+
+                                <option value="Nagaland">Nagaland</option>
+
+                                <option value="Odisha">Odisha</option>
+
+                                <option value="Punjab">Punjab</option>
+
+                                <option value="Rajasthan">Rajasthan</option>
+
+                                <option value="Sikkim">Sikkim</option>
+
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+
+                                <option value="Telangana">Telangana</option>
+
+                                <option value="Tripura">Tripura</option>
+
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+
+                                <option value="Uttarakhand">Uttarakhand</option>
+
+                                <option value="West Bengal">West Bengal</option>
+
+                            </optgroup>
+
+                            <optgroup label="Union Territories">
+
+                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+
+                                <option value="Chandigarh">Chandigarh</option>
+
+                                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+
+                                <option value="Delhi">Delhi</option>
+
+                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+
+                                <option value="Ladakh">Ladakh</option>
+
+                                <option value="Lakshadweep">Lakshadweep</option>
+
+                                <option value="Puducherry">Puducherry</option>
+
+                            </optgroup>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="form-section-label">About your vehicle</div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="vehicle">Q4. Your Vehicle (Model &amp; Year) <span aria-hidden="true">*</span></label>
+
+                        <input
+
+                            type="text"
+
+                            id="vehicle"
+
+                            name="vehicle"
+
+                            required
+
+                            maxlength="150"
+
+                            placeholder="Example: Hyundai Verna 2017 / Tata Sumo 2012">
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="story">Q5. What's Interesting About Your Vehicle or Ownership Experience? <span aria-hidden="true">*</span></label>
+
+                        <textarea
+
+                            id="story"
+
+                            name="story"
+
+                            required
+
+                            minlength="10"
+
+                            maxlength="1000"
+
+                            rows="4"
+
+                            placeholder="Tell us your vehicle's story in 1–3 sentences..."></textarea>
+
+                        <p class="help-text">
+
+                            Tell us briefly what makes your vehicle or experience interesting. It could be high mileage,
+
+                            expensive repairs, second-hand buying experience, reliability, maintenance, or any unusual story.
+
+                            <br><strong>Example:</strong> "I purchased a used Hyundai Verna for ₹4 lakh, but within a year
+
+                            I spent almost ₹1.5 lakh on repairs. I want to share what went wrong and what buyers should know."
+
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="form-section-label">Contact details</div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="whatsapp">Q6. Your WhatsApp Number <span aria-hidden="true">*</span></label>
+
+                        <input
+
+                            type="tel"
+
+                            id="whatsapp"
+
+                            name="whatsapp"
+
+                            required
+
+                            inputmode="numeric"
+
+                            autocomplete="tel-national"
+
+                            pattern="[6-9][0-9]{9}"
+
+                            minlength="10"
+
+                            maxlength="10"
+
+                            title="Enter a valid 10-digit Indian mobile number"
+
+                            placeholder="Example: 9876543210">
+
+                        <p class="help-text">Enter your 10-digit Indian mobile number without +91 or spaces.</p>
+
+                        <p class="help-text">We'll only use this number to contact you regarding your vehicle story.</p>
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="storyPdf">Q7. Upload Your Vehicle Story (Optional)</label>
+
+
+
+                        <div class="pdf-upload-control">
+
+                            <input
+
+                                type="file"
+
+                                id="storyPdf"
+
+                                name="storyPdf"
+
+                                class="pdf-upload-input"
+
+                                accept=".pdf,application/pdf"
+
+                                data-max-size="5242880"
+
+                                aria-describedby="pdfUploadHelp pdfFileName">
+
+
+
+                            <label for="storyPdf" class="pdf-upload-button">
+
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+
+                                    <path d="M12 16V4"></path>
+
+                                    <path d="m7 9 5-5 5 5"></path>
+
+                                    <path d="M5 15.5V20h14v-4.5"></path>
+
+                                </svg>
+
+                                Choose PDF File
+
+                            </label>
+
+
+
+                            <span id="pdfFileName" class="pdf-file-name" aria-live="polite">
+
+                                No file selected
+
+                            </span>
+
+                        </div>
+
+
+
+                        <p class="help-text" id="pdfUploadHelp">
+
+                            If you have written your vehicle story in a PDF, you can upload it here.
+
+                            This is optional — you can submit the form without uploading a file.
+
+                        </p>
+
+                        <p class="help-text">PDF files only. Maximum file size: 5 MB.</p>
+
+                    </div>
+
+
+
+                    <div class="consent-block">
+
+                        <label for="consent">
+
+                            <input type="checkbox" id="consent" name="consent" value="Yes" required>
+
+                            <span>I agree to be contacted by The Worthy Garage regarding my vehicle story submission. <strong>*</strong></span>
+
+                        </label>
+
+                    </div>
+
+
+
+                    <div class="privacy-note">
+
+                        Your details will be used only to review your vehicle story and contact you about a possible
+
+                        feature. Your contact information will not be displayed publicly.
+
+                    </div>
+
+
+
+                    <div id="form-message" class="help-text" role="status" aria-live="polite"></div>
+
+
+
+                    <button type="submit" class="btn btn-primary btn-block" id="submit-button" style="margin-top:22px; padding:13px 20px;">
+
+                        Submit Your Story
+
+                    </button>
+
+                    <p class="help-text" style="text-align:center; margin-top:12px;">Fields marked with * are required.</p>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div>
+
+                    <img src="TWG_logo.svg" alt="The Worthy Garage" height="auto" width="80">
+
+                    <p style="color:#C7CDD6; font-size:0.9rem; margin-top:10px;">
+
+                        Practical automotive advice, inspections and owner assistance. Every request is reviewed case by
+
+                        case before service scope and quotation are confirmed.
+
+                    </p>
+
+                    <div class="social-icons">
+
+                        <a href="https\://youtube.com/@theworthygarage" target="\_blank" rel="noopener"
+
+                            aria-label="YouTube">▶</a>
+
+                    </div>
+
+                </div>
+
+
+
+                <div>
+
+                    <h4>Services</h4>
+
+                    <ul>
+
+                        <li><a href="#">Car Buying Consultation</a></li>
+
+                        <li><a href="#">Vehicle Inspection / PDI</a></li>
+
+                        <li><a href="#">Used Parts, Engine &amp; Repair Assistance</a></li>
+
+                        <li><a href="#">Sell Your Car</a></li>
+
+                        <li><a href="#">Ownership Review / Car Story</a></li>
+
+                    </ul>
+
+                </div>
+
+
+
+                <div>
+
+                    <h4>Support</h4>
+
+                    <ul>
+
+                        <li><a href="#">Track Request</a></li>
+
+                        <li><a href="#">About</a></li>
+
+                        <li><a href="#">Contact</a></li>
+
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+
+                        <li><a href="#">Terms and Conditions</a></li>
+
+                        <li><a href="#">Cancellation &amp; Refund Policy</a></li>
+
+                    </ul>
+
+                </div>
+
+
+
+                <div>
+
+                    <h4>Contact</h4>
+
+                    <ul>
+
+                        <li>Remote consultation available across India</li>
+
+                        <li>support\@theworthygarage.com</li>
+
+                        <li>+91 76794 82290</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="footer-bottom">
+
+                &copy; 2026 The Worthy Garage. All rights reserved.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+
+    <!-- TWG submission confirmation popup -->
+    <div
+        class="twg-modal"
+        id="twg-confirm-modal"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="twg-confirm-title"
+        aria-describedby="twg-confirm-message">
+        <div class="twg-modal__backdrop" data-modal-close></div>
+        <div class="twg-modal__dialog" role="document">
+            <div class="twg-modal__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <path d="m5 12.5 4.5 4.5L19 7"></path>
+                </svg>
+            </div>
+            <h2 id="twg-confirm-title">Request received!</h2>
+            <p id="twg-confirm-message">
+                Your request has been sent to TWG family. Our team will contact you shortly.
+            </p>
+            <button type="button" class="btn btn-primary twg-modal__ok" id="twg-confirm-ok">
+                OK
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+
+
+    <script>
+
+        (function () {
+
+            const pdfInput = document.getElementById('storyPdf');
+
+            const pdfFileName = document.getElementById('pdfFileName');
+
+
+
+            if (!pdfInput || !pdfFileName) return;
+
+
+
+            pdfInput.addEventListener('change', function () {
+
+                const file = this.files && this.files[0];
+
+
+
+                if (!file) {
+
+                    pdfFileName.textContent = 'No file selected';
+
+                    pdfFileName.classList.remove('has-file');
+
+                    return;
+
+                }
+
+
+
+                pdfFileName.textContent = file.name;
+
+                pdfFileName.classList.add('has-file');
+
+            });
+
+        })();
+
+    </script>
+
+
+
+</body>
+
+</html>
